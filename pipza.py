@@ -19,7 +19,7 @@ def getCustomer(mode):
     except: 
         customer = ''
 
-    if(customer != '' and mode !='-custom'):
+    if(customer != '' and mode !='custom'):
         firstName = customer.get('first_name')
         lastName = customer.get('last_name')
         email = customer.get('email')
@@ -41,7 +41,7 @@ def getAddress(mode):
     except: 
         address = ''
 
-    if(address != '' and mode !='-custom'):
+    if(address != '' and mode !='custom'):
         street = address.get('street')
         city = address.get('city')
         state = address.get('state')
