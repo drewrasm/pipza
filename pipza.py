@@ -76,6 +76,12 @@ customer = getCustomer(mode)
 address = getAddress(mode)
 store = getStore(address)
 
+order = pizzapi.Order(store, customer, address)
+#TODO: make a function that will gather the card informtion. maybe we should gather the card information after they have chosen their pizza
+#TODO: display their total bill before they pay for it
+#TODO: maybe give them an option to do a test without using actual card information
+
+
 print('Hello, ' + customer.first_name + ' ' + customer.last_name)
 print('Your store is : ', store)
 
