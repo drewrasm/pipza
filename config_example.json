@@ -14,7 +14,7 @@
     "card" : {
         "card_number" : "",
         "pin" : "",
-        "civ" : "",
+        "zip" : "",
         "expiration": ""
     }
 
