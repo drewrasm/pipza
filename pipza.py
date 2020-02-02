@@ -27,14 +27,16 @@ def getCustomer(mode):
             fullName = input('Enter your first and last name (ex: Babe Ruth): ')
             firstName = fullName.split(' ')[0]
             lastName = fullName.split(' ')[1]
-        try:
-            email = customer.get('email')
-        except:
+
+        email = customer.get('email')
+        if(email == ''):
             email = input('Please enter your email: ')
-        try:
-            phone = customer.get('phone')
-        except: 
+
+        
+        phone = customer.get('phone')
+        if phone == '':
             phone = input('Please enter your phone number: ')
+
     else: 
         print('Your customer info: ')
         fullName = input('Enter your first and last name (ex: Babe Ruth): ')
@@ -54,9 +56,17 @@ def getAddress(mode):
 
     if(address != '' and mode !='custom'):
         street = address.get('street')
+        if street == '':
+            street = input('Please enter your street (ex: 299 east example way): ')
         city = address.get('city')
+        if city == '':
+            city = input('Please enter your city: ')
         state = address.get('state')
+        if state == '':
+            state = input('Please enter your state (ex: \'UT\' for Utah): ')
         zipCode = address.get('zip_code')
+        if zipCode == '':
+            zipCode = input('Please enter your zip code: ')
     else: 
         print('Your address: ')
         street = input('Please enter your street (ex: 299 east example way): ')
@@ -132,27 +142,47 @@ store = getStore(address)
 # print('did card work?', card)
 
 
-if(not store.data['IsOpen']):
-    print('warning, the closest store to you is closed, you may want to call them')
-menu = store.get_menu()
-codes = menu.menu_by_code
-for code in codes:
-    currentData = codes[code].menu_data
-    # if 'Large' in currentData['Size']:
-        # print(currentData)
-    # print(currentData)
-    if('Size' in currentData.keys() and 'Large' in currentData['Size']):
-        print(currentData['Description'])
-        
-
-
-order = pizzapi.Order(store, customer, address)
-#TODO: display their total bill before they pay for it
-#TODO: maybe give them an option to do a test without using actual card information
-
 
 print('Hello, ' + customer.first_name + ' ' + customer.last_name)
 displayStoreData(store)
+
+if(not store.data['IsOpen']):
+    print('warning, the closest store to you is closed, you may want to call them')
+
+menu = store.get_menu()
+order = pizzapi.Order(store, customer, address)
+
+print('Let\'s build your order!')
+print('--------------------------')
+
+print('Here is the menu along with the item codes')
+codes = menu.menu_by_code
+for code in codes:
+    currentData = codes[code].menu_data
+    if 'ReferencedProductCode' in currentData.keys() and 'Size' in currentData.keys():
+        print('___________________' + '\n')
+        print(currentData['ReferencedProductCode'])
+        print(currentData['Size'])
+        print(currentData['Name'])
+
+ordering = True
+while ordering:
+    print()
+    item = input('Please enter an order item: ')
+    try:
+        order.add_item(item)
+    except:
+        print('oops looks like a bad code, try again')
+        continue
+    keepGoing = input('Would you like to add another? (y/n): ')
+    print(keepGoing)
+    if keepGoing == '' or keepGoing == 'n' or keepGoing == 'no':
+        ordering = False
+
+print(order.data)
+
+#TODO: display their total bill before they pay for it
+#TODO: maybe give them an option to do a test without using actual card information
 
 
 

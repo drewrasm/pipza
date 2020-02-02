@@ -1,0 +1,161 @@
+Here is the menu along with the item codes
+___________________
+
+14SCREEN
+Large (14")
+Hand Tossed Large Cheese
+___________________
+
+B32PBIT
+32-Piece
+Parm Bread Bites
+___________________
+
+B8PCSCB
+8-Piece
+Cheese Stuffed Cheesy Bread
+___________________
+
+14SCREEN
+Large (14")
+Hand Tossed Pepperoni
+___________________
+
+W40PBNLW
+40-Piece
+Plain Boneless Chicken
+___________________
+
+14SCREEN
+Large (14")
+Hand Tossed Sausage
+___________________
+
+14SCREEN
+Large (14")
+Hand Tossed Pepperoni & Sausage
+___________________
+
+W14PBNLW
+14-Piece
+Plain Boneless Chicken
+___________________
+
+14SCREEN
+Large (14")
+Hand Tossed Ham & Pineapple
+___________________
+
+W40PHOTW
+40-Piece
+Hot Wings
+___________________
+
+14SCREEN
+Large (14")
+Hand Tossed Pepperoni & Mushroom
+___________________
+
+W14PHOTW
+14-Piece
+Hot Wings
+___________________
+
+W40PBBQW
+40-Piece
+BBQ Wings
+___________________
+
+P12IPAZA
+Medium (12")
+Medium Cheese Pan
+___________________
+
+P12IPAZA
+Medium (12")
+Medium Pepperoni Pan
+___________________
+
+W14PBBQW
+14-Piece
+BBQ Wings
+___________________
+
+P10IGFZA
+Small (10")
+Small Gluten Free Crust Pepperoni
+___________________
+
+MARBRWNE
+9-Piece
+Domino's Marbled Cookie Brownie™ 
+___________________
+
+14SCEXTRAV
+Large (14")
+Hand Tossed ExtravaganZZa
+___________________
+
+P14ITHPV
+Large (14")
+Thin Crust Pacific Veggie Pizza
+___________________
+
+2LCOKE
+2-Liter Bottle
+Coke
+___________________
+
+2LDCOKE
+2-Liter Bottle
+Diet Coke
+___________________
+
+2LSPRITE
+2-Liter Bottle
+Sprite
+___________________
+
+14SCREEN
+Large (14")
+Large (14") Hand Tossed Pizza
+___________________
+
+14SCREEN
+Large (14")
+Large (14") Hand Tossed Pizza Whole: Pepperoni
+___________________
+
+12SCREEN
+Medium (12")
+Medium (12") Hand Tossed Pizza Whole: Ham, Pineapple
+___________________
+
+12SCREEN
+Medium (12")
+Medium (12") Hand Tossed Pizza Whole : Mushrooms, Pepperoni
+___________________
+
+P12IREPV
+Medium (12")
+Medium (12") Hand Tossed Pacific Veggie Pizza
+___________________
+
+PSANSACB
+Sandwich
+Chicken Bacon Ranch Sandwich
+___________________
+
+PINPASCA
+Individual
+Chicken Alfredo Pasta
+___________________
+
+W08PBBQW
+8-Piece
+8-Piece BBQ Wings (1) Ranch
+___________________
+
+B2PCLAVA
+2-Piece
+2-Piece Chocolate Lava Crunch Cakes
