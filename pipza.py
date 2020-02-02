@@ -119,10 +119,14 @@ def getCard():
 
 
 mode = ''
+defaultOrder = False
 for i in range(len(sys.argv)):
     if(sys.argv[i] == '-default'):
         #use all the available file values
         mode = 'default'
+        default = print('would you like to user your default order? (y/n): ')
+        if default == 'y' or default == 'yes':
+            defaultOrder = True
         break
     if(sys.argv[i] == '-custom'): 
         #use inputs
@@ -152,32 +156,45 @@ if(not store.data['IsOpen']):
 menu = store.get_menu()
 order = pizzapi.Order(store, customer, address)
 
-print('Let\'s build your order!')
-print('--------------------------')
 
-print('Here is the menu along with the item codes')
-codes = menu.menu_by_code
-for code in codes:
-    currentData = codes[code].menu_data
-    if 'ReferencedProductCode' in currentData.keys() and 'Size' in currentData.keys():
-        print('___________________' + '\n')
-        print(currentData['ReferencedProductCode'])
-        print(currentData['Size'])
-        print(currentData['Name'])
+if defaultOrder == False: 
+    print('Let\'s build your order!')
+    print('--------------------------')
 
-ordering = True
-while ordering:
-    print()
-    item = input('Please enter an order item: ')
-    try:
-        order.add_item(item)
-    except:
-        print('oops looks like a bad code, try again')
-        continue
-    keepGoing = input('Would you like to add another? (y/n): ')
-    print(keepGoing)
-    if keepGoing == '' or keepGoing == 'n' or keepGoing == 'no':
-        ordering = False
+    print('Here is the menu along with the item codes')
+    codes = menu.menu_by_code
+    for code in codes:
+        currentData = codes[code].menu_data
+        if 'ReferencedProductCode' in currentData.keys() and 'Size' in currentData.keys():
+            print('___________________' + '\n')
+            print(currentData['ReferencedProductCode'])
+            print(currentData['Size'])
+            print(currentData['Name'])
+
+    ordering = True
+    while ordering:
+        print()
+        item = input('Please enter an order item: ')
+        try:
+            order.add_item(item)
+        except:
+            print('oops looks like a bad code, try again')
+            continue
+        keepGoing = input('Would you like to add another? (y/n): ')
+        print(keepGoing)
+        if keepGoing == '' or keepGoing == 'n' or keepGoing == 'no':
+            ordering = False
+else: 
+    try: 
+        with open('config.json') as json_file:
+            orderData = json.load(json_file).get('card')
+    except: 
+        orderData = ''
+    for item in orderData:
+        try:
+            order.add_item(item)
+        except:
+            print('there seems to be a bad item in your default order, check your config.json file')
 
 print(order.data)
 
