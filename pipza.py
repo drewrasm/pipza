@@ -194,19 +194,25 @@ displayOrder(order.data)
 
 
 #COMMENT THIS OUT IF YOU DO NOT WANT TO RISK MAKING AN ACTUAL PURCHASE
-# isRealPurchase = (input('+++ WOULD YOU LIKE TO ACTUALLY CHARGE YOUR CARD? (y/n) +++') == 'y')
-# if isRealPurchase: 
-#     paymentData = order.pay_with(card)
-# else: 
-#     paymentData = order.place(card)
+isRealPurchase = (input('+++ WOULD YOU LIKE TO ACTUALLY CHARGE YOUR CARD? (y/n) +++: ') == 'y')
+if isRealPurchase: 
+    paymentData = order.pay_with(card)
+else: 
+    paymentData = order.place(card)
 
 #COMMENT THIS OUT ONCE YOU ARE SET ON MAKING A PURCHASE
-paymentData = order.pay_with(card)
+# paymentData = order.pay_with(card)
 
-desiredData = ['Customer', 'Surcharge', 'Tax']
-for data in desiredData:
-    if data in paymentData['Order']['AmountsBreakdown']:
-        print(data, ': ', paymentData['Order']['AmountsBreakdown'][data])
+
+for data in paymentData['Order']['AmountsBreakdown'].keys():
+    print(data, ': ', paymentData['Order']['AmountsBreakdown'][data])
+
+# desiredData = ['Customer', 'Surcharge', 'Tax']
+# for data in desiredData:
+#     if data in paymentData['Order']['AmountsBreakdown']:
+#         print(data, ': ', paymentData['Order']['AmountsBreakdown'][data])
+
+#TODO: find out how to see if it was a successful order
 
 
 
