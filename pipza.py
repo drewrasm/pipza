@@ -38,7 +38,6 @@ def getCustomer(mode, configFile):
     return pizzapi.Customer(firstName, lastName, email, phone)
 
 def getAddress(mode, configFile):
-    #check for each of the needed variables if it exists inside of the config file, if not just use the custom ones
     address = configFile.get('address')
     if(address != None and mode !='custom'):
         street = address.get('street')
@@ -96,9 +95,19 @@ def getCard(configFile):
         zipCode = input('Please enter the zip code: ')
         expiration = input('Please enter the expiration date: ')
     return pizzapi.PaymentObject(cardNumber, expiration, pin, zipCode)
+
+def displayOrder(orderData):
+    products = orderData['Products']
+    print('+++++++++++++')
+    print('YOUR ORDER: ')
+    if len(products) == 0:
+        print('your order is empty!')
+        exit()
+    for product in products:
+        price = product['Price']
+        name = product['Name']
+        print(f'\t - {name} : {price}')
     
-
-
 mode = ''
 defaultOrder = False
 for i in range(len(sys.argv)):
@@ -167,13 +176,12 @@ if defaultOrder == False:
             print('it did equal c')
         
         keepGoing = input('Would you like to add another? (y/n): ')
-        print(keepGoing)
         if keepGoing == '' or keepGoing == 'n' or keepGoing == 'no':
             ordering = False
 else: 
     try: 
         with open('config.json') as json_file:
-            orderData = json.load(json_file).get('card')
+            orderData = json.load(json_file).get('default_order')
     except: 
         orderData = ''
     for item in orderData:
@@ -182,11 +190,23 @@ else:
         except:
             print('there seems to be a bad item in your default order, check your config.json file')
 
-print(order.data)
+displayOrder(order.data)
 
-#TODO: display their total bill before they pay for it
-#TODO: maybe give them an option to do a test without using actual card information
 
+#COMMENT THIS OUT IF YOU DO NOT WANT TO RISK MAKING AN ACTUAL PURCHASE
+# isRealPurchase = (input('+++ WOULD YOU LIKE TO ACTUALLY CHARGE YOUR CARD? (y/n) +++') == 'y')
+# if isRealPurchase: 
+#     paymentData = order.pay_with(card)
+# else: 
+#     paymentData = order.place(card)
+
+#COMMENT THIS OUT ONCE YOU ARE SET ON MAKING A PURCHASE
+paymentData = order.pay_with(card)
+
+desiredData = ['Customer', 'Surcharge', 'Tax']
+for data in desiredData:
+    if data in paymentData['Order']['AmountsBreakdown']:
+        print(data, ': ', paymentData['Order']['AmountsBreakdown'][data])
 
 
 
