@@ -11,28 +11,19 @@ except:
     print('you do not have a settings file set up, if you would like one, please make a file called config.json, an example is provided.' + '\n')
     print('_________________________')
 
-def getCustomer(mode): 
-    #check for each of the needed variables if it exists inside of the config file, if not just use the custom ones
-    try: 
-        with open('config.json') as json_file:
-            customer = json.load(json_file).get('customer')
-    except: 
-        customer = ''
+def getCustomer(mode, configFile): 
+    customer = configFile.get('customer')
 
-    if(customer != '' and mode !='custom'):
-        try:
-            firstName = customer.get('first_name')
-            lastName = customer.get('last_name')
-        except:
+    if(customer != None and mode !='custom'):
+        firstName = customer.get('first_name')
+        lastName = customer.get('last_name')
+        if(firstName == '' or lastName == ''):
             fullName = input('Enter your first and last name (ex: Babe Ruth): ')
             firstName = fullName.split(' ')[0]
             lastName = fullName.split(' ')[1]
-
         email = customer.get('email')
         if(email == ''):
             email = input('Please enter your email: ')
-
-        
         phone = customer.get('phone')
         if phone == '':
             phone = input('Please enter your phone number: ')
@@ -46,15 +37,10 @@ def getCustomer(mode):
         phone = input('Please enter your phone number: ')
     return pizzapi.Customer(firstName, lastName, email, phone)
 
-def getAddress(mode):
+def getAddress(mode, configFile):
     #check for each of the needed variables if it exists inside of the config file, if not just use the custom ones
-    try: 
-        with open('config.json') as json_file:
-            address = json.load(json_file).get('address')
-    except: 
-        address = ''
-
-    if(address != '' and mode !='custom'):
+    address = configFile.get('address')
+    if(address != None and mode !='custom'):
         street = address.get('street')
         if street == '':
             street = input('Please enter your street (ex: 299 east example way): ')
@@ -88,14 +74,9 @@ def displayStoreData(store):
     print(f'Your store is :  ID: { storeId }, ADDRESS: {streetName}, {city}, {region}')
     print(f'Their phone number is: {phone}')
 
-def getCard():
-    try: 
-        with open('config.json') as json_file:
-            card = json.load(json_file).get('card')
-    except: 
-        card = ''
-
-    if(card != '' and mode !='custom'):
+def getCard(configFile):
+    card = configFile.get('card')
+    if(card != None and mode !='custom'):
         cardNumber = card.get('card_number')
         if(cardNumber == ''):
             cardNumber = input('Please enter your card number: ')
@@ -137,15 +118,16 @@ for i in range(len(sys.argv)):
         print('here are the available commands: ' + '\n' + '-help (displays the available arguments)' + '\n' + '-default (reads available values from config file to the program)' + '\n' + '-custom (allows for full custom inputs for order)' )
         break
 
+try: 
+    with open('config.json') as json_file:
+        configFile = json.load(json_file)
+except: 
+    configFile = ''
 
-customer = getCustomer(mode)
-address = getAddress(mode)
+customer = getCustomer(mode, configFile)
+address = getAddress(mode, configFile)
 store = getStore(address)
-# card = getCard()
-
-# print('did card work?', card)
-
-
+card = getCard(configFile)
 
 print('Hello, ' + customer.first_name + ' ' + customer.last_name)
 displayStoreData(store)
@@ -174,12 +156,16 @@ if defaultOrder == False:
     ordering = True
     while ordering:
         print()
-        item = input('Please enter an order item: ')
-        try:
-            order.add_item(item)
-        except:
-            print('oops looks like a bad code, try again')
-            continue
+        item = input('Please enter an order item (enter c to cancel): ')
+        if item != 'c' and item != 'cancel': 
+            try:
+                order.add_item(item)
+            except:
+                print('oops looks like a bad code, try again')
+                continue
+        if item == 'c':
+            print('it did equal c')
+        
         keepGoing = input('Would you like to add another? (y/n): ')
         print(keepGoing)
         if keepGoing == '' or keepGoing == 'n' or keepGoing == 'no':
