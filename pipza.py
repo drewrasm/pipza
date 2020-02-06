@@ -114,7 +114,7 @@ for i in range(len(sys.argv)):
     if(sys.argv[i] == '-default'):
         #use all the available file values
         mode = 'default'
-        default = print('would you like to user your default order? (y/n): ')
+        default = input('would you like to user your default order? (y/n): ')
         if default == 'y' or default == 'yes':
             defaultOrder = True
         break
@@ -125,6 +125,7 @@ for i in range(len(sys.argv)):
     if(sys.argv[i] == '-help'):
         print('*only one command is valid at a time*')
         print('here are the available commands: ' + '\n' + '-help (displays the available arguments)' + '\n' + '-default (reads available values from config file to the program)' + '\n' + '-custom (allows for full custom inputs for order)' )
+        exit()
         break
 
 try: 
@@ -207,6 +208,10 @@ else:
 for data in paymentData['Order']['AmountsBreakdown'].keys():
     print(data, ': ', paymentData['Order']['AmountsBreakdown'][data])
 
+if isRealPurchase:
+    print('Check your email for an order confirmation!')
+else:
+    print('THIS IS A TEST PAYMENT, YOUR CARD WAS NOT CHARGED')
 # desiredData = ['Customer', 'Surcharge', 'Tax']
 # for data in desiredData:
 #     if data in paymentData['Order']['AmountsBreakdown']:
