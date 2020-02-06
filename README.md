@@ -17,7 +17,7 @@
 * Running the Script
   * after you are in your environment (source env/bin/activate) run the script by running
   > python3 pipza.py [args]
-  > the available arguments are -help, -default, and -custom
+    * the available arguments are -help, -default, and -custom
     * -help: displays a small documentation of the available commands
     * -default: uses all the default values it can from the config.json file (except the actual order, which you can choose to use or not during the script's execution)
     * -custom: permits the user to input all of the values for the order
