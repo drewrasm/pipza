@@ -173,8 +173,6 @@ if defaultOrder == False:
             except:
                 print('oops looks like a bad code, try again')
                 continue
-        if item == 'c':
-            print('it did equal c')
         
         keepGoing = input('Would you like to add another? (y/n): ')
         if keepGoing == '' or keepGoing == 'n' or keepGoing == 'no':
